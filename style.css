@@ -1,0 +1,62 @@
+.heading {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    
+}
+
+.calcbox {
+    display: grid;
+    justify-content: center;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns:repeat(4,1fr);
+    width: 500px;
+    height: 500px;
+    border: solid;
+
+  
+    
+}
+
+.calcdisplay {
+    grid-column-start: 1;
+    grid-column-end: 5;
+}
+
+.addition {
+grid-row-start: 2;
+grid-column-start: 4;
+
+}
+.subtraction {
+grid-row-start: 3;
+grid-column-start: 4;
+}
+.multiply {
+    grid-row-start: 4;
+    grid-column-start: 4;
+    grid-column-end: 4;
+
+}
+.divide {
+    grid-row-start: 5;
+    grid-column-start: 4;
+
+}
+
+.equal {
+    grid-row-start: 6;
+    grid-column-start: 4;
+}
+
+.clear {
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+
+.zero {
+    grid-row-start: 6;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
