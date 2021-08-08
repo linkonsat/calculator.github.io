@@ -1,6 +1,5 @@
 let buttonlist = document.querySelectorAll("button")
 buttonlist.forEach(x => x.addEventListener('click', myfunc));
-
 let textdisplay = []
 let operator = []
 let textdisplayright = []
@@ -8,6 +7,12 @@ function myfunc(event){
     let z = event.target.textContent;
     arrayconstructor(z)
 }
+
+function myfunc2(event){
+    let z = event.target.textContent;
+   equation(z)
+}
+
 function typecheck (x) {
     if (typeof(x) === "number") {
         return true 
@@ -16,9 +21,7 @@ function typecheck (x) {
     }
 }
 function arrayconstructor (x) {
-   
     let z = document.querySelector('.calcdisplay')
-    let operators = document.querySelectorAll('.operator')
    textdisplay.push(x)
    let y = textdisplay
 
@@ -41,10 +44,9 @@ function arrayconstructor (x) {
        let finalarray =  y.reduce((a,b) => a + b)
        z.textContent = finalarray
        
-       buttonlist.forEach(item => item.addEventListener('click', equation))
+       buttonlist.forEach(item => item.addEventListener('click', myfunc2))
    }
-
-   if (y.some(item => item == "-") == false){
+    if (y.some(item => item == "-") == false){
     let finalarray =  y.reduce((a,b) => a + b)
     
      z.textContent = finalarray
@@ -54,7 +56,7 @@ function arrayconstructor (x) {
     operator.push(operatorchoice)
     let finalarray =  y.reduce((a,b) => a + b)
     z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', equation))
+    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
    }
     if (y.some(item => item == "*") == false){
     let finalarray =  y.reduce((a,b) => a + b)
@@ -66,7 +68,7 @@ function arrayconstructor (x) {
     operator.push(operatorchoice)
     let finalarray =  y.reduce((a,b) => a + b)
     z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', equation))
+    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
    }
 
    if (y.some(item => item == "/") == false){
@@ -79,56 +81,24 @@ function arrayconstructor (x) {
     operator.push(operatorchoice)
     let finalarray =  y.reduce((a,b) => a + b)
     z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', equation))
+    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
    }
-
             }
-        function add(userin) {
-
-                const z = userin.length
-                let start = 0;
-                let end = 2
-                for(let i = 0; i < z;i++) {
-                    
-                
-                    if (typecheck(userin[i]) == true || userin[i] == "+") {
-                         return console.log(userin[start] + userin[end])
-                    } else if (typecheck(userin[i]) == false && userin[i] != "+") {
-                         return("this works")
-                    }
-            
-                    }
-              
-            }
-            function multiply(btnm,userin) {
-                const z = userin.length
-                let start = 0;
-                let end = 2;
-                for(let i = 0; i < z;i++) {
-                    if(typecheck(userin[i]) == true || userin[i] == "*") {
-                        return userin[start] * userin[end]
-                    } else if(typecheck(userin[i]) == false && userin != "*") {
-                        return "this works"
-                    }
-                    
-                }
+        function add(workingarray) {
+            operator.push(workingarray[3])
+            operator.pop()
+            return workingarray[0] + workingarray[1]
                 
             }
-            function subtract(btns,userin) { 
-                const z = userin.length
-                let start = 0;
-                let end =2; 
-                for(i = 0; i < z; i++) {
-                    if(typecheck(userin[i]) == true || userin[i] == "-") {
-                        return userin[start] - userin[end]
-                    } else if(lettercheck(userin[i]) == false && userin[i] != "-") {
-                        return "this works"
-                    }
-                    
-                }
+            function multiply(workingarray) {
+             return workingarray[0]
+                
+            }
+            function subtract(workingarray) { 
+             
             
             }
-            function divide(btnd,userin) {
+            function divide(workingarray) {
                 const z = userin.length
                 let start = 0;
                 let end = 2;
@@ -141,30 +111,86 @@ function arrayconstructor (x) {
                 }
             
             }
-            function operate(userinfo) { 
-
-               let operation = userinfo[1]
+            function operate(firstnum,firstoperate,secnumber,secondoperate) { 
+                let newarray = [firstnum,firstoperate,secnumber,secondoperate]
+               let operation = newarray[1]
                 switch(operation){
                     case "+": 
-                        add(z)
+                        add(newarray)
                         break;
                     case "-": 
-                        subtract(z)
+                        subtract(newarray)
                         break;
                     case "*":
-                        multiply(z)
+                        multiply(newarray)
                         break;
                     case "/":
-                        divide(z)
+                        divide(newarray)
                         break;
                     case ".":
             
             }
             }
             
-            function equation(event) {
-                let z = event.target.textContent
-                let number1 = textdisplayright
-                let operatormain = operator
-                number1.push(z)
-            }
+            function equation(x) {
+                let z = document.querySelector('.calcdisplay')
+            textdisplayright.push(x)
+            let y = textdisplayright
+
+   if (y.some(item => item == "." ) == true) {
+       let decimalselect = document.querySelector('.decimal')
+       decimalselect.removeEventListener('click',equation)
+       let finalarray2 = y.reduce(function(start,end) {
+           return start + end
+       })
+       z.textContent = finalarray2
+   }
+   if (y.some(item => item == "+") == false){
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    
+     z.textContent = finalarray2
+   } else {
+
+       let operatorchoice = y.pop()
+       operator.push(operatorchoice)
+       let finalarray2 =  y.reduce((a,b) => a + b)
+       z.textContent = finalarray2
+  
+   }
+    if (y.some(item => item == "-") == false){
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    
+     z.textContent = finalarray2
+   } else {
+ 
+    let operatorchoice = y.pop()
+    operator.push(operatorchoice)
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    z.textContent = finalarray2
+
+   }
+    if (y.some(item => item == "*") == false){
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    
+     z.textContent = finalarray2
+    }else {
+    let operatorchoice = y.pop()
+    operator.push(operatorchoice)
+    let finalarraymulti =  y.reduce((a,b) => a + b)
+    z.textContent = finalarraymulti
+
+   }
+
+   if (y.some(item => item == "/") == false){
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    
+     z.textContent = finalarray2
+   } else {
+
+    let operatorchoice = y.pop()
+    operator.push(operatorchoice)
+    let finalarray2 =  y.reduce((a,b) => a + b)
+    z.textContent = finalarray2
+   }
+            
+        }
