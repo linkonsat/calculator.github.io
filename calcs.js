@@ -13,17 +13,12 @@ function myfunc2(event){
    equation(z)
 }
 
-function typecheck (x) {
-    if (typeof(x) === "number") {
-        return true 
-    } else {    
-        return false
-    }
-}
+
 function arrayconstructor (x) {
-    let z = document.querySelector('.calcdisplay')
+    let z = document.querySelector('.currentnum')
    textdisplay.push(x)
    let y = textdisplay
+   let lastitem = textdisplay[textdisplay.length - 1]   
 
    if (y.some(item => item == "." ) == true) {
        let decimalselect = document.querySelector('.decimal')
@@ -33,7 +28,7 @@ function arrayconstructor (x) {
        })
        z.textContent = finalarray
    }
-   if (y.some(item => item == "+") == false){
+   if (operatorcheck(lastitem) == false){
     let finalarray =  y.reduce((a,b) => a + b)
     
      z.textContent = finalarray
@@ -46,48 +41,19 @@ function arrayconstructor (x) {
        
        buttonlist.forEach(item => item.addEventListener('click', myfunc2))
    }
-    if (y.some(item => item == "-") == false){
-    let finalarray =  y.reduce((a,b) => a + b)
     
-     z.textContent = finalarray
-   } else {
-       buttonlist.forEach(item => item.removeEventListener('click',myfunc))
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarray =  y.reduce((a,b) => a + b)
-    z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
-   }
-    if (y.some(item => item == "*") == false){
-    let finalarray =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray
-   } else {
-    buttonlist.forEach(item => item.removeEventListener('click',myfunc))
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarray =  y.reduce((a,b) => a + b)
-    z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
-   }
-
-   if (y.some(item => item == "/") == false){
-    let finalarray =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray
-   } else {
-    buttonlist.forEach(item => item.removeEventListener('click',myfunc))
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarray =  y.reduce((a,b) => a + b)
-    z.textContent = finalarray
-    buttonlist.forEach(item => item.addEventListener('click', myfunc2))
-   }
             }
         function add(workingarray) {
+            let z = document.querySelector(".currentnum")
+       
             operator.push(workingarray[3])
-            operator.pop()
-            return workingarray[0] + workingarray[1]
+            
+            let addition = Number(workingarray[0]) + Number(workingarray[2])
+            textdisplay.splice([0])
+            textdisplayright.splice([0])
+            textdisplay.push(addition)
+            
+            z.textContent = addition
                 
             }
             function multiply(workingarray) {
@@ -99,22 +65,13 @@ function arrayconstructor (x) {
             
             }
             function divide(workingarray) {
-                const z = userin.length
-                let start = 0;
-                let end = 2;
-                for(i = 0; i < z; i++) {
-                    if(typecheck(userin[i]) ==true || userin[i] == "/") {
-                        return userin[start] / userin[end] 
-                    } else if (lettercheck(userin[i]) == false || userin[i] != "/") {
-                        return "this works"
-                    }
-                }
+          
             
             }
             function operate(firstnum,firstoperate,secnumber,secondoperate) { 
                 let newarray = [firstnum,firstoperate,secnumber,secondoperate]
                let operation = newarray[1]
-                switch(operation){
+                switch(operation[0]){
                     case "+": 
                         add(newarray)
                         break;
@@ -133,10 +90,10 @@ function arrayconstructor (x) {
             }
             
             function equation(x) {
-                let z = document.querySelector('.calcdisplay')
+                let z = document.querySelector('.currentnum')
             textdisplayright.push(x)
             let y = textdisplayright
-
+             let lastitem = textdisplayright[textdisplayright.length - 1]   
    if (y.some(item => item == "." ) == true) {
        let decimalselect = document.querySelector('.decimal')
        decimalselect.removeEventListener('click',equation)
@@ -145,52 +102,27 @@ function arrayconstructor (x) {
        })
        z.textContent = finalarray2
    }
-   if (y.some(item => item == "+") == false){
+   if (operatorcheck(lastitem) == false){
     let finalarray2 =  y.reduce((a,b) => a + b)
     
      z.textContent = finalarray2
    } else {
 
        let operatorchoice = y.pop()
-       operator.push(operatorchoice)
        let finalarray2 =  y.reduce((a,b) => a + b)
+       let finalarray1 = textdisplay.reduce((a,b) => a + b)
        z.textContent = finalarray2
-  
+       operate(finalarray1,operator,finalarray2,operatorchoice)
    }
-    if (y.some(item => item == "-") == false){
-    let finalarray2 =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray2
-   } else {
- 
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarray2 =  y.reduce((a,b) => a + b)
-    z.textContent = finalarray2
+}
 
-   }
-    if (y.some(item => item == "*") == false){
-    let finalarray2 =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray2
-    }else {
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarraymulti =  y.reduce((a,b) => a + b)
-    z.textContent = finalarraymulti
+function operatorcheck (target) {
 
-   }
+    let operators = ["+","-","*","/"]
 
-   if (y.some(item => item == "/") == false){
-    let finalarray2 =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray2
-   } else {
-
-    let operatorchoice = y.pop()
-    operator.push(operatorchoice)
-    let finalarray2 =  y.reduce((a,b) => a + b)
-    z.textContent = finalarray2
-   }
-            
-        }
+    if (operators.includes(target)) {
+        return true
+    } else {
+        return false
+    }
+}
