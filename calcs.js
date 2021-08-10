@@ -1,9 +1,24 @@
 let buttonlist = document.querySelectorAll("button")
+window.addEventListener('keydown', function(e) {
+    let buttonlistkeys = document.querySelectorAll(`button[data-key="${e.keyCode}"]`)
+    console.log(buttonlistkeys)
+    if (typeof(operator[0]) != "string") {
+    arrayconstructor(buttonlistkeys[0].textContent)
+    } else {
+        equation(buttonlistkeys[0].textContent)
+    }
+    
+})
+
 buttonlist.forEach(x => x.addEventListener('click', myfunc));
+
 
 let textdisplay = []
 let operator = []
 let textdisplayright = []
+let lastop = document.querySelector('.displaylasteq')
+
+
 function myfunc(event){
     let z = event.target.textContent;
   
@@ -30,14 +45,22 @@ function arrayconstructor (x) {
            return start + end
        })
        z.textContent = finalarray
+       lastop.textContent = finalarray + " " + operator
    }
    if (y.some(item => item == "CE") == true) {
     clear()
    }  else if (y.some(item => item == "DLT")) {
     y.pop()
     y.pop()
+    if (y[0] != undefined) {
     let newicon = y.reduce((a,b) => a + b)
+    
     z.textContent = newicon
+    lastop.textContent = finalarray + " " + operator
+    } else {
+        z.textContent = ""
+        lastop.textContent = finalarray + " " + operator
+    }
      return
  }   else if (y.some(item => item == "=")) {
      y.pop()
@@ -47,16 +70,23 @@ function arrayconstructor (x) {
     let finalarray =  y.reduce((a,b) => a + b)
     
      z.textContent = finalarray
+     lastop.textContent = finalarray + " " + operator
    } else {
        buttonlist.forEach(item => item.removeEventListener('click',myfunc))
+       
        let operatorchoice = y.pop()
        operator.push(operatorchoice)
+     
        let finalarray =  y.reduce((a,b) => a + b)
        z.textContent = finalarray
-       
-       buttonlist.forEach(item => item.addEventListener('click', myfunc2))
-   }
+       lastop.textContent = finalarray + " " + operator
     
+       buttonlist.forEach(item => item.addEventListener('click', myfunc2))
+     
+
+   }
+  
+   
             }
         function add(workingarray) {
            
@@ -117,14 +147,22 @@ function arrayconstructor (x) {
            return start + end
        })
        z.textContent = finalarray2
+       lastop.textContent = textdisplay + " " + operator
    }
    if (y.some(item => item == "CE") == true) {
     clear()
     }  else if (y.some(item => item == "DLT")) {
        y.pop()
        y.pop()
-       let newicon = y.reduce((a,b) => a + b)
-       z.textContent = newicon
+       if (y[0] != undefined) {
+        let newicon = y.reduce((a,b) => a + b)
+        
+        z.textContent = newicon
+        lastop.textContent = firstarray + " " + operator
+        } else {
+            z.textContent = ""
+            lastop.textContent = ""
+        }
         return
     }  
     else if ( lastitem == "=") {
@@ -134,12 +172,15 @@ function arrayconstructor (x) {
         let finalarray2 = y.reduce((a,b) => a + b)
         let finalarray1 = textdisplay.reduce((a,b) => a + b)
         z.textContent = finalarray2
+        lastop.textContent = finalarray1 + " " + operator[0]
+        operator.splice(1,1)
         operate(finalarray1,operator,finalarray2)
     }
     else if (operatorcheck(lastitem) == false){
     let finalarray2 =  y.reduce((a,b) => a + b)
     
      z.textContent = finalarray2
+     lastop.textContent = textdisplay + " " + operator[0]
    } 
    else  {
        
@@ -149,8 +190,9 @@ function arrayconstructor (x) {
        let finalarray2 =  y.reduce((a,b) => a + b)
        let finalarray1 = textdisplay.reduce((a,b) => a + b)
        z.textContent = finalarray2
-        
-       operate(finalarray1,operatorchoice,finalarray2,operatorchoice)
+       lastop.textContent = finalarray1 + " " + operator[0]
+        operator.splice(1,1)
+       operate(finalarray1,operatorchoice,finalarray2)
         
    }
 }
@@ -159,10 +201,10 @@ function operatorcheck (target) {
 
     let operators = ["+","-","*","/"]
 
-    if (operators.includes(target)) {
-        return true
-    } else {
-        return false
+        if (operators.includes(target)) {
+            return true
+        } else {
+         return false
     }
 }
 
@@ -170,12 +212,12 @@ function operatorrun(operation,newoperator)  {
     let z = document.querySelector(".currentnum")
             textdisplay.splice([0])
             textdisplayright.splice([0])
-        
-            operator.pop()
-            operator.push(newoperator)
+            
             
             textdisplay.push(operation)
             z.textContent = operation
+            lastop.textContent = operation
+           
 }
 
 function clear() {
