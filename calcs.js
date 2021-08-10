@@ -135,6 +135,7 @@ function arrayconstructor (x) {
             }
             
             function equation(x) {
+            
                 let z = document.querySelector('.currentnum')
             textdisplayright.push(x)
            
@@ -178,9 +179,9 @@ function arrayconstructor (x) {
     }
     else if (operatorcheck(lastitem) == false){
     let finalarray2 =  y.reduce((a,b) => a + b)
-    
+       
      z.textContent = finalarray2
-     lastop.textContent = textdisplay + " " + operator[0]
+     lastop.textContent = textdisplay.reduce((a,b)  => a + b) + " " + operator[0]
    } 
    else  {
        
