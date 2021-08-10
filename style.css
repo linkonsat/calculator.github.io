@@ -4,7 +4,9 @@
     padding-top: 100px;
     
 }
-
+.body {
+    background-color: lightblue;
+}
 .calcbox {
     display: grid;
     justify-content: center;
@@ -12,7 +14,12 @@
     grid-template-columns:repeat(4,1fr);
     width: 500px;
     height: 500px;
-    border: solid;
+    border: solid ;
+    grid-gap: 1px;
+    background-color: lightblue;
+    
+    
+    
 
   
     
@@ -23,48 +30,73 @@
     grid-column-end: 5;
     display: grid;
     grid-template-rows: 1fr 1fr;
+    border-bottom: solid 1px;
+    text-align: right;
+    background-color: white;
+    
 }
 
 .addition {
 grid-row-start: 2;
 grid-column-start: 4;
-
+font-size: 125%;
+background-color: blue;
 }
 .subtraction {
 grid-row-start: 3;
 grid-column-start: 4;
+font-size: 125%;
+background-color: blue;
 }
 .multiply {
     grid-row-start: 4;
     grid-column-start: 4;
     grid-column-end: 4;
-
+    font-size: 125%;
+    background-color: blue;
 }
 .divide {
     grid-row-start: 5;
     grid-column-start: 4;
-
+    font-size: 125%;
+    background-color: rgb(41, 41, 248);
 }
 
 .equal {
     grid-row-start: 6;
     grid-column-start: 4;
+    font-size: 125%;
+    background-color: green;
 }
 
 .clear {
     grid-row-start: 2;
     grid-column-start: 1;
-    grid-column-end: 3;    
+    grid-column-end: 3;  
+    background-color: red;
+    font-size: 125%;
+      
 }
 
 .zero {
     grid-row-start: 6;
     grid-column-start: 1;
     grid-column-end: 3;
+    font-size: 125%;
 }
 
 .back {
     grid-row-start: 2;
     grid-column-start: 3;
     grid-column-end: 4;
+    font-size: 125%;
+    background-color: rgb(250, 119, 119);
+}
+.number {
+    font-size: 125%;
+}
+
+.decimal {
+    font-size: 125%;
+
 }
