@@ -112,9 +112,11 @@ function arrayconstructor (x) {
         return
     }  
     else if ( lastitem == "=") {
-        
+        if(operatorcheck(y[0]) == true) {
+        let newoperator = y.pop()
+            operator.push(newoperator)
+        }
         y.pop()
-        y.unshift([""])
         let finalarray2 = y.reduce((a,b) => a + b)
         let finalarray1 = textdisplay.reduce((a,b) => a + b)
         z.textContent = finalarray2
@@ -134,7 +136,6 @@ function arrayconstructor (x) {
        
        let operatorchoice = y.pop()
        operator.unshift(operatorchoice)
-      
        let finalarray2 =  y.reduce((a,b) => a + b)
        let finalarray1 = textdisplay.reduce((a,b) => a + b)
        z.textContent = finalarray2
