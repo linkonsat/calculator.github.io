@@ -1,22 +1,20 @@
 let buttonlist = document.querySelectorAll("button")
-window.addEventListener('keydown', function(e) {
-    let buttonlistkeys = document.querySelectorAll(`button[data-key="${e.keyCode}"]`)
-    console.log(buttonlistkeys)
-    if (typeof(operator[0]) != "string") {
-    arrayconstructor(buttonlistkeys[0].textContent)
-    } else {
-        equation(buttonlistkeys[0].textContent)
-    }
-    
-})
-
-buttonlist.forEach(x => x.addEventListener('click', myfunc));
-
-
 let textdisplay = []
 let operator = []
 let textdisplayright = []
 let lastop = document.querySelector('.displaylasteq')
+   
+            window.addEventListener('keydown', function(e) {
+        let buttonlistkeys = document.querySelectorAll(`button[data-key="${e.keyCode}"]`)
+        console.log(buttonlistkeys)
+        if (typeof(operator[0]) != "string") {
+        arrayconstructor(buttonlistkeys[0].textContent)
+        } else {
+            equation(buttonlistkeys[0].textContent)
+        }
+    
+    })
+buttonlist.forEach(x => x.addEventListener('click', myfunc));
 
 
 function myfunc(event){
@@ -34,113 +32,59 @@ function myfunc2(event){
 
 function arrayconstructor (x) {
     let z = document.querySelector('.currentnum')
-   textdisplay.push(x)
-   let y = textdisplay
-   let lastitem = textdisplay[textdisplay.length - 1]   
+    textdisplay.push(x)
+    let y = textdisplay
+    let lastitem = textdisplay[textdisplay.length - 1]   
 
-   if (y.some(item => item == "." ) == true) {
-       let decimalselect = document.querySelector('.decimal')
-       decimalselect.removeEventListener('click',myfunc)
-       let finalarray = y.reduce(function(start,end) {
-           return start + end
-       })
-       z.textContent = finalarray
-       lastop.textContent = finalarray + " " + operator
-   }
-   if (y.some(item => item == "CE") == true) {
-    clear()
-   }  else if (y.some(item => item == "DLT")) {
-    y.pop()
-    y.pop()
-    if (y[0] != undefined) {
-    let newicon = y.reduce((a,b) => a + b)
-    
-    z.textContent = newicon
-    lastop.textContent = finalarray + " " + operator
-    } else {
-        z.textContent = ""
-        lastop.textContent = finalarray + " " + operator
-    }
-     return
- }   else if (y.some(item => item == "=")) {
-     y.pop()
-     return
- }   
-   else if (operatorcheck(lastitem) == false){
-    let finalarray =  y.reduce((a,b) => a + b)
-    
-     z.textContent = finalarray
-     lastop.textContent = finalarray + " " + operator
-   } else {
-       buttonlist.forEach(item => item.removeEventListener('click',myfunc))
-       
-       let operatorchoice = y.pop()
-       operator.push(operatorchoice)
-     
-       let finalarray =  y.reduce((a,b) => a + b)
-       z.textContent = finalarray
-       lastop.textContent = finalarray + " " + operator
-    
-       buttonlist.forEach(item => item.addEventListener('click', myfunc2))
-     
+        if (y.some(item => item == "." ) == true) {
+            let decimalselect = document.querySelector('.decimal')
+            decimalselect.removeEventListener('click',myfunc)
+            let finalarray = y.reduce(function(start,end) {
+                return start + end
+            })
+            z.textContent = finalarray
+            lastop.textContent = finalarray + " " + operator
+        }
 
-   }
-  
-   
+        if (y.some(item => item == "CE") == true) {
+                clear()
+        }  else if (y.some(item => item == "DLT")) {
+                y.pop()
+                y.pop()
+            if (y[0] != undefined) {
+                let newicon = y.reduce((a,b) => a + b)
+                z.textContent = newicon
+                lastop.textContent = finalarray + " " + operator
+            } else {
+                z.textContent = ""
+                lastop.textContent = finalarray + " " + operator
             }
-        function add(workingarray) {
-           
-            let addition = Number(workingarray[0]) + Number(workingarray[2])
-            operatorrun(addition,workingarray[3])
-            }
-            function multiply(workingarray) {
-             let multiply = Number(workingarray[0]) * Number(workingarray[2])
-             operatorrun(multiply,workingarray[3])
-                
-            }
-            function subtract(workingarray) { 
-             let subtract = Number(workingarray[0]) - Number(workingarray[2])
-             operatorrun(subtract,workingarray[3])
-            
-            }
-            function divide(workingarray) {
-                if (Number(workingarray[0] ==0 || Number(workingarray[2] == 0))) {
-                    return alert("You broke the calculator :*(. Maybe don't have just a zero?")
+                return
+            }   
+            else if (y.some(item => item == "=")) {
+                y.pop()
+                return }   
+             else if (operatorcheck(lastitem) == false){
+                let finalarray =  y.reduce((a,b) => a + b)
+                z.textContent = finalarray
+                lastop.textContent = finalarray + " " + operator
+            } else {
+                buttonlist.forEach(item => item.removeEventListener('click',myfunc))
+                let operatorchoice = y.pop()
+                operator.push(operatorchoice)
+                let finalarray =  y.reduce((a,b) => a + b)
+                z.textContent = finalarray
+                lastop.textContent = finalarray + " " + operator
+                buttonlist.forEach(item => item.addEventListener('click', myfunc2))
                 }
-                let divide = Number(workingarray[0]) / Number(workingarray[2])
-                operatorrun(divide,workingarray[3])
-            }
-            function operate(firstnum,firstoperate,secnumber,secondoperate) { 
-                let newarray = [firstnum,firstoperate,secnumber,secondoperate]
-                
-               let operation = newarray[1]
-          
-               
-                switch(operation[0]){
-                    case "+": 
-                        add(newarray)
-                        break;
-                    case "-": 
-                        subtract(newarray)
-                        break;
-                    case "*":
-                        multiply(newarray)
-                        break;
-                    case "/":
-                        divide(newarray)
-                        break;
-                  
+             }
+    function equation(x) {
             
-            }
-            }
-            
-            function equation(x) {
-            
-                let z = document.querySelector('.currentnum')
+            let z = document.querySelector('.currentnum')
             textdisplayright.push(x)
-           
             let y = textdisplayright
-             let lastitem = textdisplayright[textdisplayright.length - 1]   
+            let lastitem = textdisplayright[textdisplayright.length - 1]   
+
    if (y.some(item => item == "." ) == true) {
        let decimalselect = document.querySelector('.decimal')
        decimalselect.removeEventListener('click',equation)
@@ -150,6 +94,7 @@ function arrayconstructor (x) {
        z.textContent = finalarray2
        lastop.textContent = textdisplay + " " + operator
    }
+   
    if (y.some(item => item == "CE") == true) {
     clear()
     }  else if (y.some(item => item == "DLT")) {
@@ -174,8 +119,10 @@ function arrayconstructor (x) {
         let finalarray1 = textdisplay.reduce((a,b) => a + b)
         z.textContent = finalarray2
         lastop.textContent = finalarray1 + " " + operator[0]
-        operator.splice(1,1)
+        
         operate(finalarray1,operator,finalarray2)
+        operator.splice(0,1)
+        
     }
     else if (operatorcheck(lastitem) == false){
     let finalarray2 =  y.reduce((a,b) => a + b)
@@ -187,16 +134,64 @@ function arrayconstructor (x) {
        
        let operatorchoice = y.pop()
        operator.unshift(operatorchoice)
-       
+      
        let finalarray2 =  y.reduce((a,b) => a + b)
        let finalarray1 = textdisplay.reduce((a,b) => a + b)
        z.textContent = finalarray2
        lastop.textContent = finalarray1 + " " + operator[0]
-        operator.splice(1,1)
-       operate(finalarray1,operatorchoice,finalarray2)
-        
+       operator.splice(1,1)
+       operate(finalarray1,operator,finalarray2)
+       
+       
    }
 }
+
+            function operate(firstnum,firstoperate,secnumber,secondoperate) { 
+                let newarray = [firstnum,firstoperate,secnumber,secondoperate]
+                
+               let operation = newarray[1]
+          
+               
+                switch(operation[0]){
+                    case "+": 
+                        add(newarray)
+                        break;
+                    case "-": 
+                        subtract(newarray)
+                        break;
+                    case "*":
+                        multiply(newarray)
+                        break;
+                    case "/":
+                        divide(newarray)
+                        break;
+                  
+            
+            }
+            }
+            function add(workingarray) {
+           
+                let addition = Number(workingarray[0]) + Number(workingarray[2])
+                operatorrun(addition,workingarray[3])}
+                
+                function multiply(workingarray) {
+                 let multiply = Number(workingarray[0]) * Number(workingarray[2])
+                 operatorrun(multiply,workingarray[3])}
+                    
+                
+                function subtract(workingarray) { 
+                 let subtract = Number(workingarray[0]) - Number(workingarray[2])
+                 operatorrun(subtract,workingarray[3])}
+                
+                function divide(workingarray) {
+                    if (Number(workingarray[0] ==0 || Number(workingarray[2] == 0))) {
+                        return alert("You broke the calculator :*(. Maybe don't have just a zero?")
+                    }
+                    let divide = Number(workingarray[0]) / Number(workingarray[2])
+                    operatorrun(divide,workingarray[3])
+                }
+            
+            
 
 function operatorcheck (target) {
 
