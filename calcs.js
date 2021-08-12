@@ -107,22 +107,19 @@ function arrayconstructor (x) {
         lastop.textContent = firstarray + " " + operator
         } else {
             z.textContent = ""
-            lastop.textContent = ""
+            lastop.textContent = firstarray + " " + operator
         }
         return
     }  
     else if ( lastitem == "=") {
-        if(operatorcheck(y[0]) == true) {
-        let newoperator = y.pop()
-            operator.push(newoperator)
-        }
+        
         y.pop()
-        let finalarray2 = y.reduce((a,b) => a + b)
+        let finalarray2 = textdisplayright.reduce((a,b) => a + b)
         let finalarray1 = textdisplay.reduce((a,b) => a + b)
         z.textContent = finalarray2
         lastop.textContent = finalarray1 + " " + operator[0]
         
-        operate(finalarray1,operator,finalarray2)
+        operate(finalarray1,operator[0],finalarray2)
         operator.splice(0,1)
         
     }
@@ -135,15 +132,16 @@ function arrayconstructor (x) {
    else  {
        
        let operatorchoice = y.pop()
-       operator.unshift(operatorchoice)
+       operator.push(operatorchoice)
        let finalarray2 =  y.reduce((a,b) => a + b)
        let finalarray1 = textdisplay.reduce((a,b) => a + b)
        z.textContent = finalarray2
        lastop.textContent = finalarray1 + " " + operator[0]
-       operator.splice(1,1)
-       operate(finalarray1,operator,finalarray2)
        
+       operate(finalarray1,operator[0],finalarray2)
        
+       operator.splice(1)
+       operator.unshift(operatorchoice)
    }
 }
 
@@ -153,7 +151,7 @@ function arrayconstructor (x) {
                let operation = newarray[1]
           
                
-                switch(operation[0]){
+                switch(operation){
                     case "+": 
                         add(newarray)
                         break;
