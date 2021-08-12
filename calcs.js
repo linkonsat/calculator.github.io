@@ -139,8 +139,9 @@ function arrayconstructor (x) {
        lastop.textContent = finalarray1 + " " + operator[0]
        
        operate(finalarray1,operator[0],finalarray2)
+       
+       operator.splice(1)
        operator.unshift(operatorchoice)
-       operator.splice(1,2)
    }
 }
 
