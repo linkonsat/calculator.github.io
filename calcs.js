@@ -4,7 +4,7 @@ let operator = []
 let textdisplayright = []
 let lastop = document.querySelector('.displaylasteq')
    
-window.addEventListener('keydown', function(e) {
+window.addEventListener('keydown', function keyboardsupport(e) {
     let buttonlistkeys = document.querySelectorAll(`button[data-key="${e.keyCode}"]`)
     console.log(buttonlistkeys)
     if (typeof(operator[0]) != "string") {
@@ -14,6 +14,8 @@ window.addEventListener('keydown', function(e) {
     }
     
 })
+
+
 buttonlist.forEach(x => x.addEventListener('click', NumbersLeft));
 
 
@@ -36,14 +38,20 @@ function arrayconstructor (x) {
     let y = textdisplay
     let lastitem = textdisplay[textdisplay.length - 1]   
 
-        if (y.some(item => item == "." ) == true) {
+        if (y.some(item => item == "." ) == false) {
             let decimalselect = document.querySelector('.decimal')
-            decimalselect.removeEventListener('click',myfunc)
+            decimalselect.removeEventListener('click', NumbersLeft)
+            
             let finalarray = y.reduce(function(start,end) {
                 return start + end
             })
             z.textContent = finalarray
             lastop.textContent = finalarray + " " + operator
+            
+        
+        } else if (y[y.length -1] == "."
+                   && y[y.length - 2] == ".") {
+            y.pop()
         }
 
         if (y.some(item => item == "CE") == true) {
@@ -85,15 +93,18 @@ function equation(x) {
     let y = textdisplayright
     let lastitem = textdisplayright[textdisplayright.length - 1]   
 
-   if (y.some(item => item == "." ) == true) {
+   if (y.some(item => item == "." ) == false) {
        let decimalselect = document.querySelector('.decimal')
-       decimalselect.removeEventListener('click',equation)
+       decimalselect.removeEventListener('click',NumbersRight)
        let finalarray2 = y.reduce(function(start,end) {
            return start + end
        })
        z.textContent = finalarray2
        lastop.textContent = textdisplay + " " + operator
-   }
+   } else if (y[y.length -1] == "."
+    && y[y.length - 2] == ".") {
+    y.pop()
+    }
    
    if (y.some(item => item == "CE") == true) {
     clear()
