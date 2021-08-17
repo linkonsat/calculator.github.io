@@ -38,7 +38,7 @@ function arrayconstructor (x) {
     let y = textdisplay
     let lastitem = textdisplay[textdisplay.length - 1]   
 
-        if (y.some(item => item == "." ) == false) {
+        if (y.some(item => item == "." ) == true) {
             let decimalselect = document.querySelector('.decimal')
             decimalselect.removeEventListener('click', NumbersLeft)
             
@@ -49,10 +49,7 @@ function arrayconstructor (x) {
             lastop.textContent = finalarray + " " + operator
             
         
-        } else if (y[y.length -1] == "."
-                   && y[y.length - 2] == ".") {
-            y.pop()
-        }
+        } 
 
         if (y.some(item => item == "CE") == true) {
                 clear()
@@ -131,6 +128,7 @@ function equation(x) {
         lastop.textContent = finalarray1 + " " + operator[0]
         
         operate(finalarray1,operator[0],finalarray2)
+        operator.splice(0)
         
         
     }
@@ -143,12 +141,11 @@ function equation(x) {
    else  {
        
        let operatorchoice = y.pop()
-        if (typeof(textdisplay[0]) == "number" && operatorcheck(operatorchoice) == true) {
-            operator.splice(1) 
-            operator.unshift(operatorchoice)
-            
-
-        }
+       if (operatorcheck(operator[0]) == false) {
+           operator.unshift(operatorchoice)
+       }
+      
+       
     
      
        let finalarray2 =  textdisplayright.reduce((a,b) => a + b)
@@ -234,7 +231,8 @@ function operatorrun(operation,newoperator)  {
 }
 
 function clear() {
-    let z = document.querySelector('.currentnum').textContent = ''
+    let currentoperation = document.querySelector('.currentnum').textContent = ""
+    let previous_result = document.querySelector('.displaylasteq').textContent = ""
     textdisplay.splice(0)
     operator.splice(0)
     textdisplayright.splice(0)
