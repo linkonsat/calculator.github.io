@@ -3,8 +3,8 @@ let textdisplay = []
 let operator = []
 let textdisplayright = []
 let lastop = document.querySelector('.displaylasteq')
-   
-window.addEventListener('keydown', function keyboardsupport(e) {
+let full_display = document.querySelector('body')
+full_display.addEventListener('keydown', function keyboardsupport(e) {
     let buttonlistkeys = document.querySelectorAll(`button[data-key="${e.keyCode}"]`)
     console.log(buttonlistkeys)
     if (typeof(operator[0]) != "string") {
@@ -80,6 +80,7 @@ function arrayconstructor (x) {
                 let finalarray =  y.reduce((a,b) => a + b)
                 z.textContent = finalarray
                 lastop.textContent = finalarray + " " + operator
+                let decimalselect = document.querySelector('.decimal')
                 buttonlist.forEach(item => item.addEventListener('click', NumbersRight))
                 }
              }
@@ -90,7 +91,7 @@ function equation(x) {
     let y = textdisplayright
     let lastitem = textdisplayright[textdisplayright.length - 1]   
 
-   if (y.some(item => item == "." ) == false) {
+   if (y.some(item => item == "." ) == true) {
        let decimalselect = document.querySelector('.decimal')
        decimalselect.removeEventListener('click',NumbersRight)
        let finalarray2 = y.reduce(function(start,end) {
@@ -98,10 +99,7 @@ function equation(x) {
        })
        z.textContent = finalarray2
        lastop.textContent = textdisplay + " " + operator
-   } else if (y[y.length -1] == "."
-    && y[y.length - 2] == ".") {
-    y.pop()
-    }
+   } 
    
    if (y.some(item => item == "CE") == true) {
     clear()
